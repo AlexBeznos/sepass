@@ -1,4 +1,4 @@
-require_relative "container"
+require_relative 'container'
 
 module Sepass
   Import = Sepass::Container.injector

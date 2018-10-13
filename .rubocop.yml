@@ -1,0 +1,94 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - Rakefile
+    - spec/**/*
+    - bin/*
+
+# Layout
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Layout/IndentationWidth:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/SpaceInLambdaLiteral:
+  Enabled: false
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Layout/DotPosition:
+  Enabled: false
+
+# Metrics
+Metrics/AbcSize:
+  # Make it large for now
+  Max: 40
+Metrics/CyclomaticComplexity:
+  # Make it large for now, reduce to default later
+  Max: 10
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+  # Make it large for now
+  Max: 20
+Metrics/BlockLength:
+  CountComments: false
+  Max: 30
+  Exclude:
+    - 'spec/**/*'
+    - '**/*schema*'
+
+# Bundler
+Bundler/OrderedGems:
+  Enabled: false
+
+# Style
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+Style/BlockDelimiters:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Style/LambdaCall:
+  Enabled: false
+Style/MethodName:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+Style/NegatedIf:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+Style/SingleLineBlockParams:
+  Enabled: false
+Style/SpecialGlobalVars:
+  Enabled: false
+Style/StabbyLambdaParentheses:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+Style/SymbolArray:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Style/WordArray:
+  Enabled: false

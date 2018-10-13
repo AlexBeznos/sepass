@@ -26,14 +26,12 @@ module Sepass
     plugin :error_handler
     plugin :path
 
-    route do |r|
-      r.multi_route
-    end
+    route(&:multi_route)
 
     error do |e|
       self.class[:rack_monitor].instrument(:error, exception: e)
 
-      if(ENV.fetch('RACK_ENV') == 'production')
+      if ENV.fetch('RACK_ENV') == 'production'
         {errors: 'Something went wrong. Try again later...'}
       else
         raise e

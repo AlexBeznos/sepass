@@ -70,13 +70,13 @@ module Sepass
           if valid
             Success(rest)
           else
-            Failure(errors: { secret: ['is expired'] })
+            Failure(errors: {secret: ['is expired']})
           end
         end
 
         def decode_secret(secret:, **rest)
           decoded = crypter.decrypt(secret.secret)
-          decoded = Marshal.load(decoded)
+          decoded = Marshal.load(decoded) # rubocop:disable Security/MarshalLoad
 
           rest.merge(
             secret:  secret,

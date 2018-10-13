@@ -11,6 +11,6 @@ Sepass::Container.boot :crypter do |system|
   end
 
   start do
-    register 'crypter', SymmetricEncryption 
+    register 'crypter', SymmetricEncryption
   end
 end
