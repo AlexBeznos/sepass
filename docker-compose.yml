@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    image: sepass-app
+    container_name: sepass-app
+    entrypoint: ./build/wait_for_db.sh sepass-postgres
+    command: rerun -- rackup -p 8080 -o 0.0.0.0 config.ru
+    volumes:
+      - .:/app
+    tmpfs:
+      - /app/tmp
+      - /app/log
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: always
+    stdin_open: true
+    tty: true
+    environment:
+      RACK_ENV: development
+
+  postgres:
+    image: postgres:9.6
+    container_name: sepass-postgres
+    restart: always
+    volumes:
+      - sepass-data:/var/lib/postgresql/data:delegated
+
+volumes:
+  sepass-data:

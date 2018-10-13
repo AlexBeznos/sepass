@@ -1,8 +1,8 @@
 Sepass::Container.boot :persistence, namespace: true do |system|
   init do
-    require "sequel"
-    require "rom"
-    require "rom/sql"
+    require 'sequel'
+    require 'rom'
+    require 'rom/sql'
 
     use :monitor, :settings
 
@@ -23,14 +23,14 @@ Sepass::Container.boot :persistence, namespace: true do |system|
 
     rom_config.plugin :sql, relations: :auto_restrictions
 
-    register "config", rom_config
-    register "db", rom_config.gateways[:default].connection
+    register 'config', rom_config
+    register 'db', rom_config.gateways[:default].connection
   end
 
   start do
-    config = container["persistence.config"]
-    config.auto_registration system.root.join("lib/persistence")
+    config = container['persistence.config']
+    config.auto_registration system.root.join('lib/persistence')
 
-    register "rom", ROM.container(config)
+    register 'rom', ROM.container(config)
   end
 end

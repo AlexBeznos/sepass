@@ -1,0 +1,3 @@
+# Sepass scaling
+
+This application can be scaled in similar way as any other ruby app. As usual we should add load balancer and scale application horizontally by adding for virtual machines and balance load between them. Also I want to note that right now I have only development and test setups here. For pushing it to production we need to add `Puma` config set appropriate amount of workers(depends on cores and memory of VPS). In case if we will see any subsidences in database performance we will need to add slaves for `PostgreSQL` database and start managing it inside application(I didn't add it because it just doesn't makes sense to do it right now). From my point of view, this app doesn't have any bottlenecks and can be easily scaled for any load.

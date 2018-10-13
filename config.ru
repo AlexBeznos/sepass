@@ -1,2 +1,2 @@
-require_relative "system/boot"
+require_relative 'system/boot'
 run Sepass::Web.freeze.app

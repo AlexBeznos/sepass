@@ -1,45 +1,43 @@
-require "dry/web/roda/application"
-require_relative "container"
+require 'dry/web/roda/application'
+require 'dry/validation'
+
+require_relative 'container'
 
 module Sepass
   class Web < Dry::Web::Roda::Application
-    configure do |config|
-      config.container = Container
-      config.routes = "web/routes".freeze
+    SERIALIZABLE_CLASSES = [Array, Hash, Dry::Validation::Result, ROM::Struct].freeze
+    SERIALIZATION_METHOD = ->(obj) { obj.to_h.to_json }
+    JSON_ERROR_HANDLER   = lambda do |r|
+      r.halt(400, error: 'not readable JSON')
     end
 
-    opts[:root] = Pathname(__FILE__).join("../..").realpath.dirname
+    configure do |config|
+      config.container = Container
+      config.routes = 'web/routes'.freeze
+    end
 
-    use Rack::Session::Cookie, key: "sepass.session", secret: self["settings"].session_secret
+    opts[:root] = Pathname(__FILE__).join('../..').realpath.dirname
 
-    plugin :csrf, raise: true
-    plugin :dry_view
-    plugin :error_handler
-    plugin :flash
+    plugin :json, classes: SERIALIZABLE_CLASSES, serializer: SERIALIZATION_METHOD
+    plugin :json_parser, error_handler: JSON_ERROR_HANDLER
+    plugin :halt
+    plugin :all_verbs
     plugin :multi_route
+    plugin :error_handler
+    plugin :path
 
     route do |r|
-      # Enable this after writing your first web/routes/ file
-      # r.multi_route
-
-      r.root do
-        r.view "welcome"
-      end
+      r.multi_route
     end
 
     error do |e|
       self.class[:rack_monitor].instrument(:error, exception: e)
-      raise e
-    end
 
-    # Request-specific options for dry-view context object
-    def view_context_options
-      {
-        flash:        flash,
-        csrf_token:   Rack::Csrf.token(request.env),
-        csrf_metatag: Rack::Csrf.metatag(request.env),
-        csrf_tag:     Rack::Csrf.tag(request.env),
-      }
+      if(ENV.fetch('RACK_ENV') == 'production')
+        {errors: 'Something went wrong. Try again later...'}
+      else
+        raise e
+      end
     end
 
     load_routes!
