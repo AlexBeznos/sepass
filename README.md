@@ -2,7 +2,7 @@
 
 Welcome to Sepass app. This is application which allows you to securely share your passwords, secrets, etc.
 
-NOTE: From the feedback document I figured out that i had to add route for events history, but I think that access to such data should be restricted somehow, right now there is no user entity in my application and because of this restriction is not quite secure. So I decided that it does not make sense to create such route.
+NOTE: From the feedback document I figured out that i had to add route for events history, but I think that access to such data should be restricted somehow, right now there is no user entity in my application and because of this restriction is not quite secure. So I decided that it does not make sense to create such route. But still, anybody who have access to database, can find all history(fetch requests, create request) for each secret.
 
 ## How to
 
